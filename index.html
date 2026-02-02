@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Jaannuu 💖</title>
+<style>
+    * {
+        box-sizing: border-box;
+        font-family: 'Segoe UI', cursive;
+    }
+
+    body {
+        margin: 0;
+        height: 100vh;
+        overflow: hidden;
+        background: radial-gradient(circle at top, #ffb6c1, #6b0f1a);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        text-align: center;
+    }
+
+    .container {
+        background: rgba(107, 15, 26, 0.7);
+        padding: 40px;
+        border-radius: 25px;
+        box-shadow: 0 0 30px rgba(255, 182, 193, 0.8);
+        max-width: 420px;
+        position: relative;
+        z-index: 2;
+    }
+
+    h1 {
+        color: #ffd1dc;
+        font-size: 2.2em;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 1.1em;
+        color: #ffe6eb;
+    }
+
+    .decor {
+        font-size: 1.8em;
+        margin: 10px 0;
+    }
+
+    button {
+        padding: 12px 25px;
+        border-radius: 30px;
+        border: none;
+        font-size: 1.1em;
+        cursor: pointer;
+        margin: 15px;
+        transition: 0.3s ease;
+    }
+
+    #yesBtn {
+        background: #ff4d6d;
+        color: white;
+        box-shadow: 0 0 10px #ffb6c1;
+    }
+
+    #yesBtn:hover {
+        transform: scale(1.1);
+    }
+
+    #noBtn {
+        background: #ffe6eb;
+        color: #6b0f1a;
+        position: absolute;
+    }
+
+    .floating {
+        position: absolute;
+        animation: floatUp linear infinite;
+        opacity: 0.9;
+    }
+
+    @keyframes floatUp {
+        from {
+            transform: translateY(100vh) rotate(0deg);
+        }
+        to {
+            transform: translateY(-10vh) rotate(360deg);
+        }
+    }
+
+    .firework {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        animation: explode 1.2s ease-out forwards;
+    }
+
+    @keyframes explode {
+        0% {
+            transform: scale(0);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(12);
+            opacity: 0;
+        }
+    }
+
+    .hidden {
+        display: none;
+    }
+</style>
+</head>
+<body>
+
+<div class="container" id="mainBox">
+    <h1>Jaannuu 💖</h1>
+    <div class="decor">🦢🌸🎀🦋❤️</div>
+    <p>Will you be my Valentine?</p>
+
+    <button id="yesBtn">Yes 🥰</button>
+    <button id="noBtn">No 😐</button>
+</div>
+
+<div class="container hidden" id="yesBox">
+    <h1>YAYYYY 🎉💖</h1>
+    <p>
+        I knew it… I was so confident that you’d say yes 🥹  
+        My heart never doubted you for a second.
+    </p>
+    <br>
+    <p>
+        Even though there’s distance between us,  
+        my love for you travels every mile effortlessly.  
+        You’re always with me — in my heart, my thoughts, my everything 💕
+    </p>
+    <div class="decor">🦢❤️🦋🎀🌸</div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const mainBox = document.getElementById("mainBox");
+    const yesBox = document.getElementById("yesBox");
+
+    const noTexts = [
+        "Are you sure? 🤨",
+        "This is not an option 😤",
+        "Really? 🥺",
+        "Think again 😏",
+        "Wrong choice 😌"
+    ];
+
+    // NO button escape
+    noBtn.style.top = "75%";
+    noBtn.style.left = "55%";
+
+    noBtn.addEventListener("mouseenter", () => {
+        noBtn.style.left = Math.random() * 70 + "%";
+        noBtn.style.top = Math.random() * 70 + "%";
+        noBtn.textContent = noTexts[Math.floor(Math.random() * noTexts.length)];
+    });
+
+    // YES click
+    yesBtn.addEventListener("click", () => {
+        mainBox.classList.add("hidden");
+        yesBox.classList.remove("hidden");
+        launchFireworks();
+    });
+
+    // Floating hearts / butterflies
+    function createFloating(symbol) {
+        const el = document.createElement("div");
+        el.className = "floating";
+        el.textContent = symbol;
+        el.style.left = Math.random() * 100 + "vw";
+        el.style.animationDuration = 6 + Math.random() * 6 + "s";
+        el.style.fontSize = 20 + Math.random() * 30 + "px";
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 12000);
+    }
+
+    setInterval(() => {
+        ["❤️", "🦋", "🎀", "🌸"][Math.floor(Math.random() * 4)]
+        && createFloating(["❤️", "🦋", "🎀", "🌸"][Math.floor(Math.random() * 4)]);
+    }, 600);
+
+    // 🎆 FIREWORKS
+    function launchFireworks() {
+        let count = 0;
+        const boom = setInterval(() => {
+            for (let i = 0; i < 8; i++) {
+                const fw = document.createElement("div");
+                fw.className = "firework";
+                fw.style.background = `hsl(${Math.random()*360},100%,70%)`;
+                fw.style.left = Math.random() * 100 + "vw";
+                fw.style.top = Math.random() * 100 + "vh";
+                document.body.appendChild(fw);
+                setTimeout(() => fw.remove(), 1200);
+            }
+            count++;
+            if (count > 7) clearInterval(boom);
+        }, 300);
+
+        setTimeout(showNameFireworks, 3000);
+    }
+
+    function showNameFireworks() {
+        const name = "Jaannuu";
+        const startX = 15;
+        const gap = 10;
+        const y = 35;
+
+        name.split("").forEach((char, i) => {
+            setTimeout(() => {
+                const letter = document.createElement("div");
+                letter.className = "letter-firework";
+                letter.textContent = char;
+                letter.style.left = (startX + i * gap) + "vw";
+                letter.style.top = y + "vh";
+                letter.style.zIndex = 9999;
+                document.body.appendChild(letter);
+
+                for (let j = 0; j < 20; j++) {
+                    const spark = document.createElement("div");
+                    spark.className = "firework";
+                    spark.style.background = `hsl(${Math.random()*360},100%,70%)`;
+                    spark.style.left = (startX + i * gap + Math.random()*3) + "vw";
+                    spark.style.top = (y + Math.random()*3) + "vh";
+                    document.body.appendChild(spark);
+                    setTimeout(() => spark.remove(), 1200);
+                }
+            }, i * 500);
+        });
+    }
+
+});
+</script>
+<style>
+.letter-firework {
+    position: absolute;
+    z-index: 9999;
+    color: pink;
+    font-size: 70px;
+    font-weight: bold;
+    text-shadow: 0 0 20px hotpink, 0 0 40px deeppink;
+    animation: popIn 1.2s ease forwards;
+    opacity: 0;
+}
+
+
+</body>
+</html>
